@@ -19,10 +19,10 @@
 </script>
 
 <div class="dropdown">
-  <div class="selected">
+  <div class="selected" on:click={open}>
     {value.display} <small>&#x25bc;</small>
   </div>
-  <ul class="options" hidden={state === "open" || null}>
+  <ul class="options" hidden={state === "" || null}>
     {#each options as option}
       <li><a href="#" on:click={handleSelect(option)}>{option.display}</a></li>
     {/each}
