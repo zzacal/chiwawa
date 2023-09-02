@@ -1,0 +1,20 @@
+:root {
+  --background: #e7e7e2;
+  --text: #303337;
+  --text-highlight: #353730;
+  
+  --link: #00529B;
+
+  --input: #0f0f0f;
+  --input-background: #ffffff;
+  @media (prefers-color-scheme: dark) {
+    --background: #2B2B2B; 
+    --text: #babaf0;
+    --text-highlight: #fafaf0;
+
+    --link: #529fe3;
+
+    --input: #ffffff;
+    --input-background: #0f0f0f;
+  }
+}
