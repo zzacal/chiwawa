@@ -1,9 +1,10 @@
 <script lang="ts">
-  import type { DropdownOption } from "./types";
+  import type { DropdownOption, Style } from "./types";
 
   export let options: DropdownOption[];
   export let initial: string;
   export let onChange: (value: DropdownOption) => void;
+  export let style: Style = undefined;
 
   let value = options[0]
 
@@ -18,7 +19,7 @@
   const open = () => state = "open";
 </script>
 
-<div class="dropdown">
+<div class={`dropdown ${style}`}>
   <div class="selected" on:click={open}>
     {value.display} <small>&#x25bc;</small>
   </div>
@@ -37,13 +38,17 @@
     display: inline-block;
     position: relative;
 
+    &.fluid {
+      width: 100%;
+    }
+
     .selected {
       border-radius: 8px;
       border: 1px solid transparent;
       font-size: 1em;
       font-weight: 500;
       font-family: inherit;
-      display: inline-block;
+      display: block;
       padding: .6rem 2rem .6rem 1.2rem;
       color: var(--input);
       background-color: var(--input-background);

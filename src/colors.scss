@@ -7,6 +7,9 @@
 
   --input: #0f0f0f;
   --input-background: #ffffff;
+
+  --button: #e7e7e2;
+  --button-background: #00529B;
   @media (prefers-color-scheme: dark) {
     --background: #2B2B2B; 
     --text: #babaf0;
@@ -16,5 +19,8 @@
 
     --input: #ffffff;
     --input-background: #0f0f0f;
+
+    --button: #353730;
+    --button-background: #e7e7e2;
   }
 }
