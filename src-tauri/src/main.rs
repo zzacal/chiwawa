@@ -8,8 +8,15 @@ fn greet(name: &str) -> String {
 }
 
 #[tauri::command]
-fn send(request: &str) -> String {
-    format!("I sent this request {}", request)
+async fn send(request: ChiRequest) -> String {
+    match request {
+        _ => send_get(request).await
+    }
+}
+
+async fn send_get(request: ChiRequest) -> String {
+    let body = reqwest::get(request.url).await.expect("").text().await.expect("");
+    body
 }
 
 fn main() {
@@ -17,4 +24,12 @@ fn main() {
         .invoke_handler(tauri::generate_handler![greet, send])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ChiRequest {
+    method: String,
+    url: String,
 }

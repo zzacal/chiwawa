@@ -6,7 +6,7 @@
 
   async function onAddressSubmit(address: AddressEvent) {
     // response = JSON.stringify(address);
-    response = await invoke("send", {request: address.url})
+    response = await invoke("send", {request: address})
   }
 
 </script>
