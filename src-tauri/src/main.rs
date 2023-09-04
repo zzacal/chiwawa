@@ -9,12 +9,31 @@ fn greet(name: &str) -> String {
 
 #[tauri::command]
 async fn send(request: ChiRequest) -> String {
-    match request {
-        _ => send_get(request).await
+    if request.method == "POST" {
+        send_post(request).await
+    } else if request.method == "PUT" {
+        send_put(request).await
+    } else {
+        send_get(request).await
     }
 }
 
 async fn send_get(request: ChiRequest) -> String {
+    let body = reqwest::get(request.url).await.expect("").text().await.expect("");
+    body
+}
+
+async fn send_post(request: ChiRequest) -> String {
+    let body = reqwest::get(request.url).await.expect("").text().await.expect("");
+    body
+}
+
+async fn send_put(request: ChiRequest) -> String {
+    let body = reqwest::get(request.url).await.expect("").text().await.expect("");
+    body
+}
+
+async fn send_delete(request: ChiRequest) -> String {
     let body = reqwest::get(request.url).await.expect("").text().await.expect("");
     body
 }
