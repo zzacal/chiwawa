@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onAffirmativeKey } from "../utilities";
   import type { DropdownOption, Style } from "./types";
 
   export let options: DropdownOption[];
@@ -6,7 +7,7 @@
   export let onChange: (value: DropdownOption) => void;
   export let style: Style = undefined;
 
-  let value = options[0]
+  let value = options.find( o => o.val === initial) ?? options[0];
 
   const handleSelect = (selected: DropdownOption) => () => {
     value = selected;
@@ -20,12 +21,12 @@
 </script>
 
 <div class={`dropdown ${style}`}>
-  <div class="selected" on:click={open}>
+  <div class="selected" on:click={open} on:keyup={onAffirmativeKey(open)}>
     {value.display} <small>&#x25bc;</small>
   </div>
   <ul class="options" hidden={state === "" || null}>
     {#each options as option}
-      <li><a href="#" on:click={handleSelect(option)}>{option.display}</a></li>
+      <li><a href="#" on:click={handleSelect(option)} on:keyup={onAffirmativeKey(open)}>{option.display}</a></li>
     {/each}
   </ul>
 </div>

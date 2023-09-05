@@ -8,6 +8,11 @@ fn greet(name: &str) -> String {
 }
 
 #[tauri::command]
+fn initialize() -> ChiConfig {
+    ChiConfig { methods: vec![String::from("GET"), String::from("POST"), String::from("PUT"), String::from("DELETE")] }
+}
+
+#[tauri::command]
 async fn send(request: ChiRequest) -> String {
     if request.method == "POST" {
         send_post(request).await
@@ -40,15 +45,19 @@ async fn send_delete(request: ChiRequest) -> String {
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet, send])
+        .invoke_handler(tauri::generate_handler![initialize, greet, send])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
 
 use serde::{Deserialize, Serialize};
-
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ChiRequest {
     method: String,
     url: String,
+}
+
+#[derive(Serialize)]
+pub struct ChiConfig {
+    methods: Vec<String>
 }

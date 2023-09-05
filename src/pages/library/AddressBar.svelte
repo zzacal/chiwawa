@@ -3,18 +3,15 @@
 import Dropdown from "../../inputs/Dropdown.svelte";
   import Textbox from "../../inputs/Textbox.svelte";
   import type { DropdownOption } from "../../inputs/types";
-  import type { AddressEvent } from "./types";
+  import type { Address } from "./types";
   
-  export let onSubmit: (event: AddressEvent) => void;
+  export let onSubmit: (event: Address) => void;
+  export let methods: string[];
+  export let method: string = methods[0];
+  export let value: string | undefined = undefined;
   
-  let methods: DropdownOption[] = [
-    {val:"GET", display: "GET"},
-    {val:"POST", display: "POST"},
-    {val:"PUT", display: "PUT"},
-    {val:"DELETE", display: "DELETE"},
-  ];
-  let method = methods[0].val;
-  let url: string;
+  let url: string = value ?? "";
+  let methodsOptions: DropdownOption[] = methods.map(m => ({val: m, display: m}));
 
   let onMethodChange = (name: DropdownOption): void => {method = name.val};
 
@@ -25,7 +22,7 @@ import Dropdown from "../../inputs/Dropdown.svelte";
 
 <div class="address">
   <div class="method">
-    <Dropdown style="fluid" options={methods} initial={method} onChange={onMethodChange}></Dropdown>
+    <Dropdown style="fluid" options={methodsOptions} initial={method} onChange={onMethodChange}></Dropdown>
   </div>
   <div class="url">
     <Textbox type="text" style="fluid" bind:value={url} onAffirm={emitEvent}></Textbox>
