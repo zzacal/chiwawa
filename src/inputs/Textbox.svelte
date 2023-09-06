@@ -4,10 +4,8 @@
 
   export let type: InputType;
   export let style: Style = undefined;
-  export let value: string;
+  export let value: string | undefined;
   export let onAffirm: () => void;
-
-  // export let onAffirm: (value: string) => void;
 </script>
 
 {#if type == "text"}

@@ -3,15 +3,19 @@ export type Address = {
   url: string;
 };
 
-export type Headers = Map<string, string>;
+export type EnabledKvp<TKey, TVal> = {
+  isEnabled: boolean,
+  key: TKey,
+  value: TVal
+}
 
-export type Activity = Address & {
+export type Action = Address & {
   name: string
-  headers?: Headers 
+  headers?: EnabledKvp<string, string>[] 
 };
 
 export type LibraryNode = {
   name: string;
-  activities?: Activity[];
-  subs?: LibraryNode[];
+  actions?: Action[];
+  children?: LibraryNode[];
 };
