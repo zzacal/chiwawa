@@ -1,7 +1,14 @@
 <script lang="ts">
-  import Greet from './lib/Greet.svelte'
   import MainNav from './navigation/MainNav.svelte';
   import Library from './pages/library/Library.svelte';
+  import { getConfig } from './service/config-service';
+  import type { Config } from './types';
+  
+  let config: Config;
+
+  (async function init(){
+    config = await getConfig();
+  })();
 </script>
 
 <div class="navigable">
@@ -9,11 +16,9 @@
     <MainNav></MainNav>
   </nav>
   <main class="container">
-    <Library></Library>
-    
-    <!-- <div class="row">
-      <Greet />
-    </div> -->
+    {#if config}
+      <Library config={config}></Library>
+    {/if}
   </main>
 </div>
 

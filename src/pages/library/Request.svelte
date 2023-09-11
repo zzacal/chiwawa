@@ -17,9 +17,10 @@
 
   let response: string;
 
-  async function onAddressSubmit(address: Address) {
-    response = JSON.stringify({...request, headers, parameters});
-    // response = await invoke("send", {request: address})
+  async function onAddressSubmit() {
+    // response = JSON.stringify({...request, headers, parameters});
+    response = await invoke("send", {request: {...request, headers, parameters, body: ""}});
+    console.log(JSON.stringify(response))
   }
 
 </script>
@@ -39,7 +40,7 @@
   </div>
 </div>
 
-<div class="response">{response}</div>
+<div class="response">{JSON.stringify(response)}</div>
 
 <style lang="scss">
 .headers, .params {
