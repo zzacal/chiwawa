@@ -1,45 +1,48 @@
 <script lang="ts">
-  import MainNav from './navigation/MainNav.svelte';
-  import Library from './pages/library/Library.svelte';
-  import { getConfig } from './service/config-service';
+  import Materialistic from './layout/Materialistic.svelte';
+  import type { ActionTab, Tab } from './layout/types';
+  import type { Action, LibraryNode } from './pages/library/types';
+  import { getConfig, getLibrary } from './service/config-service';
   import type { Config } from './types';
   
   let config: Config;
+  let library: LibraryNode;
+  let tabs: Tab[] = [];
+  let open: Tab;
 
   (async function init(){
     config = await getConfig();
+    library = await getLibrary();
   })();
+
+  function pushAction(action: Action) {
+    let tab = tabs.find(t => t.id == action.id);
+    if (!tab) {
+      tab = {
+        id: action.id,
+        label: action.name,
+        type: "request",
+        methods: config.methods,
+        action: action
+      }
+      tabs = [...tabs, tab]
+    }
+
+    open = tab;
+  }
+
+  function closeTab(id: string) {
+    tabs = tabs.filter(t => t.id != id);
+  }
 </script>
 
-<div class="navigable">
-  <nav>
-    <MainNav></MainNav>
-  </nav>
-  <main class="container">
-    {#if config}
-      <Library config={config}></Library>
-    {/if}
-  </main>
-</div>
+<Materialistic 
+  library={library}
+  tabs={tabs}
+  onExplorerSelect={pushAction}
+  onCloseTab={closeTab}
+  open={open}
+  ></Materialistic>
 
 <style lang="scss">
-  .navigable {
-    display: flex;
-    height: 100vh;
-    
-    nav {
-      border-right: 1px solid #333;
-    }
-
-    main {
-      flex-grow: 1;
-    }
-  }
-  .logo.vite:hover {
-    filter: drop-shadow(0 0 2em #747bff);
-  }
-
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00);
-  }
 </style>

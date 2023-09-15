@@ -1,8 +1,9 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/tauri";
   import AddressBar from "./AddressBar.svelte";
-  import type { Action, Address } from "./types";
+  import type { Action, ChiResponse } from "./types";
   import NamValCollection from "./NameValues/NamValCollection.svelte";
+  import Response from "./Response.svelte";
   export let methods: string[];
   export let request: Action | undefined = undefined;
   
@@ -15,12 +16,12 @@
   let headers = request.headers ?? [];
   let parameters = request.parameters ?? [];
 
-  let response: string;
+  let response: ChiResponse;
 
   async function onAddressSubmit() {
     // response = JSON.stringify({...request, headers, parameters});
     response = await invoke("send", {request: {...request, headers, parameters, body: ""}});
-    console.log(JSON.stringify(response))
+    // console.log(JSON.stringify(response))
   }
 
 </script>
@@ -39,13 +40,21 @@
     <NamValCollection bind:value={parameters}></NamValCollection>
   </div>
 </div>
-
-<div class="response">{JSON.stringify(response)}</div>
+<div class="response">
+  {#if response} 
+    <Response bind:value={response}></Response>
+  {/if}
+</div>
+<!-- <div class="response">{JSON.stringify(response)}</div> -->
 
 <style lang="scss">
 .headers, .params {
   margin: .5rem;
   padding: .5rem;
   border: 1px solid black;
+}
+.response {
+  width: 100%;
+  overflow: hidden;
 }
 </style>

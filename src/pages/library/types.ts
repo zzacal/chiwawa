@@ -10,13 +10,20 @@ export type EnabledKvp<TKey, TVal> = {
 }
 
 export type Action = Address & {
-  name: string
-  headers?: EnabledKvp<string, string>[]
-  parameters?: EnabledKvp<string, string>[]
+  id: string;
+  name: string;
+  headers?: EnabledKvp<string, string>[];
+  parameters?: EnabledKvp<string, string>[];
 };
 
 export type LibraryNode = {
   name: string;
   actions?: Action[];
   children?: LibraryNode[];
+};
+
+export type ChiResponse = {
+  body: string;
+  headers?: [string, string][];
+  status: number;
 };

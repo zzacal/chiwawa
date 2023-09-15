@@ -1,5 +1,7 @@
 :root {
-  --background: #e7e7e2;
+  --background: #b6b6b6;
+  --background-preemph: #a1a1a1;
+  --background-emphasis: #959494;
   --text: #303337;
   --text-highlight: #353730;
   
@@ -10,8 +12,13 @@
 
   --button: #e7e7e2;
   --button-background: #00529B;
+
+  --border: #303337;
   @media (prefers-color-scheme: dark) {
-    --background: #2B2B2B; 
+    --background: #2B2B2B;
+    --background-preemph: #464545;
+    --background-emphasis: #606060;
+
     --text: #babaf0;
     --text-highlight: #fafaf0;
 
@@ -22,5 +29,7 @@
 
     --button: #353730;
     --button-background: #e7e7e2;
+
+    --border: #babaf0;
   }
 }
