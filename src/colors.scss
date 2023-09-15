@@ -2,6 +2,7 @@
   --background: #b6b6b6;
   --background-preemph: #a1a1a1;
   --background-emphasis: #959494;
+  
   --text: #303337;
   --text-highlight: #353730;
   
@@ -15,9 +16,9 @@
 
   --border: #303337;
   @media (prefers-color-scheme: dark) {
-    --background: #2B2B2B;
-    --background-preemph: #464545;
-    --background-emphasis: #606060;
+    --background: #171717;
+    --background-preemph: #2f2f2f;
+    --background-emphasis: #434343;
 
     --text: #babaf0;
     --text-highlight: #fafaf0;
