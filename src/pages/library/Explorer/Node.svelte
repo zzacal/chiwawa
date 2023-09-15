@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Folder from "~icons/eva/folder-outline";
   import { onAffirmativeKey } from "../../../utilities";
   import type { Action, LibraryNode } from "../types";
   export let library: LibraryNode;
@@ -7,12 +8,12 @@
 </script>
 {#if library}
   <div class="node">
-    📁 {library.name}
+    <Folder /> {library.name}
 
     <ul class="actions">
       {#each library.actions ?? [] as action }
         <li>
-          <a on:click={select(action)} on:keyup={onAffirmativeKey(select(action))}>
+          <a tabindex={0} href={`#${action.id}`} on:click={select(action)} on:keyup={onAffirmativeKey(select(action))}>
             {action.name}
           </a>
         </li>

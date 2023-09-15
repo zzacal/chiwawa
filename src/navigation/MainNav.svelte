@@ -1,14 +1,18 @@
 <script lang="ts">
+  import Book from "~icons/eva/book-open-fill";
+  import Bell from "~icons/eva/bell-fill";
+  import type { ComponentType } from "svelte";
+
   type Dish = {
     name: string,
-    icon: string
+    icon: ComponentType
   };
   let menu: Dish[] = [{
     name: "library",
-    icon: "📚"
+    icon: Book
   }, {
     name: "notifications",
-    icon: "🔔"
+    icon: Bell
   }];
 
   let active = menu[0];
@@ -22,7 +26,7 @@
   {#key active}
     {#each menu as dish}
       <li class={ isActive(dish.name) ? "active" : ""}>
-        <a href="#{dish.name}" on:click={onNavigate(dish.name)}>{dish.icon}</a>
+        <a href="#{dish.name}" on:click={onNavigate(dish.name)}><svelte:component this={dish.icon} /></a>
       </li>
     {/each}
   {/key}
@@ -36,6 +40,7 @@
     a {
       display: inline-block;
       padding: 8px;
+      color: var(--text-highlight);
 
       &:hover {
         filter: drop-shadow(0 0 .5em #bbb);

@@ -56,6 +56,7 @@
     display: flex;
     align-items: center;
 
+    height: 2rem;
     margin-top: .25rem;
     border-bottom: 1px solid var(--background-emphasis);
 
@@ -77,7 +78,7 @@
   }
   .tabs {
     display: flex;
-    gap: .15rem;
+    // gap: .15rem;
 
     margin: unset;
     list-style: none;
@@ -86,10 +87,11 @@
       display: flex;
       gap: .5rem;
 
-      padding: .25rem .3rem;
       border-top-right-radius: .5rem;
       border-top-left-radius: .5rem;
+      padding: .25rem .3rem .25rem 1rem;
       border-right: 1px solid var(--background-preemph);
+      border-left: 1px solid var(--background-preemph);
       
       &:hover {
         background-color: var(--background-preemph);

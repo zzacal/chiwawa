@@ -30,10 +30,16 @@
   .materialistic {
     display: flex;
   }
-  div.side {
+  .side {
     flex-shrink: 0;
   }
+
+  .main {
+    flex-grow: 1;
+  }
+
   nav, div.side, main {
-    border: 1px solid #333;
+    border-right: 1px solid #333;
+    border-bottom: 1px solid #333;
   }
 </style>
