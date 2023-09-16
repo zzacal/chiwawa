@@ -26,35 +26,39 @@
 
 </script>
 
-<div class="row">
-    <AddressBar onSubmit={onAddressSubmit} methods={methods} method={request?.method} value={request?.url}></AddressBar>
-</div>
-<div class="row">
-  <div class="headers">
-    <h2>Headers</h2>
-    <NamValCollection bind:value={headers}></NamValCollection>
+<div class="request">
+  <div class="row">
+      <AddressBar onSubmit={onAddressSubmit} methods={methods} method={request?.method} value={request?.url}></AddressBar>
   </div>
+  <div class="row">
+    <div class="headers">
+      <h2>Headers</h2>
+      <NamValCollection bind:value={headers}></NamValCollection>
+    </div>
 
-  <div class="params">
-    <h2>Parameters</h2>
-    <NamValCollection bind:value={parameters}></NamValCollection>
+    <div class="params">
+      <h2>Parameters</h2>
+      <NamValCollection bind:value={parameters}></NamValCollection>
+    </div>
+  </div>
+  <div class="response">
+    {#if response} 
+      <Response bind:value={response}></Response>
+    {/if}
   </div>
 </div>
-<div class="response">
-  {#if response} 
-    <Response bind:value={response}></Response>
-  {/if}
-</div>
-<!-- <div class="response">{JSON.stringify(response)}</div> -->
 
 <style lang="scss">
-.headers, .params {
-  margin: .5rem;
-  padding: .5rem;
-  border: 1px solid black;
-}
-.response {
-  width: 100%;
-  overflow: hidden;
+  .request {
+    margin-top: .5rem;
+  }
+  .headers, .params {
+    margin: .5rem;
+    padding: .5rem;
+    border: 1px solid black;
+  }
+  .response {
+    width: 100%;
+    overflow: hidden;
 }
 </style>

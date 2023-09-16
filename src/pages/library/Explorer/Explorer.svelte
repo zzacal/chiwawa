@@ -33,6 +33,7 @@
   .menu {
     display: flex;
     justify-content: center;
+    align-items: center;
 
     border-bottom: 1px solid #333;
     height: 2rem;
@@ -41,6 +42,8 @@
     button {
       padding: 0;
       line-height: 1rem;
+      height: 1.4rem;
+      border-radius: 0.3rem;
 
       &:focus, &:hover {
         background-color: var(--button-background);

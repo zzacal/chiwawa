@@ -67,6 +67,7 @@
 
     .menu {
       padding: 0 .5rem;
+      display: flex;
     }
 
     button {
@@ -74,6 +75,7 @@
       margin: unset;
       line-height: 1rem;
       border-radius: .3rem;
+      height: 1.4rem;
 
       &:focus, &:hover {
         background-color: var(--button-background);
@@ -97,17 +99,22 @@
       padding: .25rem .3rem .25rem 1rem;
       border-right: 1px solid var(--background-preemph);
       border-left: 1px solid var(--background-preemph);
-      
+
+      background-color: var(--tab-background);
+
       &:hover {
         background-color: var(--background-preemph);
       }
 
       &.active {
         background-color: var(--background-emphasis);
+        a {
+          color: var(--tab-active);
+        }
       }
       
       a {
-        color: var(--text-highlight);
+        color: var(--tab);
       }
     }
   }
