@@ -17,6 +17,7 @@ export type Action = Address & {
 };
 
 export type LibraryNode = {
+  id: string;
   name: string;
   actions?: Action[];
   children?: LibraryNode[];

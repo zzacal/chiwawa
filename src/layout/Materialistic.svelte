@@ -5,9 +5,10 @@
   import Explorer from "../pages/library/Explorer/Explorer.svelte";
   import type { Action, LibraryNode } from "../pages/library/types";
 
-  export let library: LibraryNode;
+  export let library: LibraryNode[];
   export let onExplorerSelect: (selected: Action) => void;
-  export let onCloseTab: (id: string) => void
+  export let onCloseTab: (id: string) => void;
+  export let onNew: (nodeId: string | null) => void;
   export let tabs: Tab[];
   export let open: Tab | null = null;
 </script>
@@ -18,11 +19,11 @@
   </nav>
   
   <div class="side">
-    <Explorer library={library} onSelect={onExplorerSelect}></Explorer>
+    <Explorer library={library} onSelect={onExplorerSelect} onNew={onNew}></Explorer>
   </div>
   
   <main class="main">
-    <Tabbable tabs={tabs} onCloseTab={onCloseTab} open={open}></Tabbable>
+    <Tabbable tabs={tabs} open={open} onCloseTab={onCloseTab} onNew={onNew} ></Tabbable>
   </main>
 </div>
  

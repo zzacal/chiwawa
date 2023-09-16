@@ -3,9 +3,11 @@
   import type { Tab } from "./types";
   import Close from "~icons/eva/close-fill";
   import Save from "~icons/eva/save-outline";
+  import Add from "~icons/eva/plus-square-outline";
   export let tabs: Tab[] = [];
-  export let onCloseTab: (id: string) => void;
   export let open: Tab | null;
+  export let onCloseTab: (id: string) => void;
+  export let onNew: (nodeId: string | null) => void;
 
   function openTab(tab: Tab) {
     return function handleSetActive() {
@@ -28,6 +30,9 @@
   <div class="menu">
     <button on:click={() => console.log("imma save now")}>
       <Save />
+    </button>
+    <button on:click={() => onNew(null)}>
+      <Add />
     </button>
   </div>
   <ul class="tabs">
