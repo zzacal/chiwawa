@@ -27,6 +27,6 @@ export type LibraryNode = {
 
 export type ChiResponse = {
   body: string;
-  headers?: [string, string][];
+  headers: [string, string][];
   status: number;
 };

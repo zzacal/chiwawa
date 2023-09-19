@@ -1,5 +1,6 @@
 <script lang="ts">
-  import NamValCollection from "../NameValues/NamValCollection.svelte";
+  import NameValCollection from "../NameValues/NameValCollection.svelte";
+  import NameValDisplay from "../NameValues/NameValDisplay.svelte";
   import type { ActionTabContent } from "./tab-types";
   export let tabs: ActionTabContent[];
   let active: ActionTabContent = tabs[0];
@@ -27,17 +28,23 @@
     <textarea>{active.content}</textarea>
   {:else if active.type === "headers"}
     <h3>{active.label}</h3>
-    <NamValCollection bind:value={active.content} />
-  {:else if active.type == "params"}
+    <NameValCollection bind:value={active.content} />
+  {:else if active.type === "params"}
     <h3>{active.label}</h3>
     {#if active.content.path}
       <h3>Query</h3>
-      <NamValCollection bind:value={active.content.query} />
+      <NameValCollection bind:value={active.content.query} />
       {#if active.content.path}
         <h3>Path</h3>
-        <NamValCollection bind:value={active.content.path} />
+        <NameValCollection bind:value={active.content.path} />
       {/if}
     {/if}
+  {:else if active.type==="response-body"}
+    <h3>{active.label}</h3>
+    <textarea>{active.content}</textarea>
+  {:else if active.type === "response-headers"}
+    <h3>{active.label}</h3>
+    <NameValDisplay value={active.content}></NameValDisplay>
   {/if}
 </div>
 

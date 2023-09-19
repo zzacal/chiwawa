@@ -3,7 +3,7 @@ import type { EnabledKvp } from "../types";
 export type ActionTabContent = {
   label: string,
   isEditable: boolean,
-} & (HeadersTabContent | BodyTabContent | ParametersTabContent);
+} & (HeadersTabContent | BodyTabContent | ParametersTabContent | ResponseBodyTabContent | ResponseHeadersTabContent);
 
 export type HeadersTabContent = {
   type: "headers",
@@ -31,3 +31,16 @@ export type ParametersTabContent = {
     path: EnabledKvp<string, string>[];
   }) => void
 }
+
+export type ResponseBodyTabContent = {
+  type: "response-body",
+  label: "Body",
+  content: string,
+}
+
+export type ResponseHeadersTabContent = {
+  type: "response-headers",
+  label: "Headers",
+  content: [string, string][],
+}
+
