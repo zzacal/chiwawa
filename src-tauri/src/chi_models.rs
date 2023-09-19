@@ -29,7 +29,8 @@ pub struct Action {
     pub url: String,
     pub name: String,
     pub headers: Option<Vec<EnabledKvp<String, String>>>,
-    pub parameters: Option<Vec<EnabledKvp<String, String>>>,
+    pub query: Option<Vec<EnabledKvp<String, String>>>,
+    pub path: Option<Vec<EnabledKvp<String, String>>>,
     pub body: String
 }
 

@@ -50,7 +50,7 @@
 </nav>
 <div class="active">
   {#key open}
-    {#if open?.type === "request"}
+    {#if open?.type === "request" && open.action}
     <Request methods={open.methods} request={open.action}></Request>
     {/if}
   {/key}

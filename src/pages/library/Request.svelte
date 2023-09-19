@@ -1,50 +1,79 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/tauri";
   import AddressBar from "./AddressBar.svelte";
-  import type { Action, ChiResponse } from "./types";
+  import type { Action, ChiResponse, EnabledKvp } from "./types";
   import NamValCollection from "./NameValues/NamValCollection.svelte";
   import Response from "./Response.svelte";
+  import ActionTabs from "./tabs/ActionTabs.svelte";
+  import { path } from "@tauri-apps/api";
   export let methods: string[];
-  export let request: Action | undefined = undefined;
+  export let request: Action;
   
-  request = request ?? {
-    name: "Get",
-    method: methods[0],
-    url: "",
-  };
+  // request = request ?? {
+  //   id: "",
+  //   name: "Get",
+  //   method: methods[0],
+  //   url: "",
+  // };
 
-  let headers = request.headers ?? [];
-  let parameters = request.parameters ?? [];
+  // let headers = request.headers ?? [];
+  // let query = request.query ?? [];
+  // let path = request.path ?? [];
+  // let body = request.body;
 
+  console.log(request)
   let response: ChiResponse;
+  
+  async function onRequestBodyUpdate(body: string) {
+    request = {...request, body};
+  }
+
+  async function onHeaderUpdate(headers: EnabledKvp<string, string>[]) {
+    request = {...request, headers};
+  }
+
+  async function onParametersUpdate({query, path}: {
+    query: EnabledKvp<string, string>[];
+    path: EnabledKvp<string, string>[];
+  }) {
+    request = {...request, query, path};
+  }
 
   async function onAddressSubmit() {
     // response = JSON.stringify({...request, headers, parameters});
-    response = await invoke("send", {request: {...request, headers, parameters, body: ""}});
-    // console.log(JSON.stringify(response))
+    console.log(JSON.stringify(request));
+    response = await invoke("send", request);
   }
-
 </script>
 
 <div class="request">
   <div class="row">
       <AddressBar onSubmit={onAddressSubmit} methods={methods} method={request?.method} value={request?.url}></AddressBar>
   </div>
-  <div class="row">
-    <div class="headers">
-      <h2>Headers</h2>
-      <NamValCollection bind:value={headers}></NamValCollection>
-    </div>
 
-    <div class="params">
-      <h2>Parameters</h2>
-      <NamValCollection bind:value={parameters}></NamValCollection>
-    </div>
-  </div>
-  <div class="response">
-    {#if response} 
-      <Response bind:value={response}></Response>
-    {/if}
+  <div class="details" >
+    <ActionTabs tabs={[{
+      type: "headers",
+      label: "Headers",
+      content: request.headers,
+      isEditable: true,
+      onUpdate: onHeaderUpdate,
+    }, {
+      type: "body",
+      label: "Body",
+      content: request.body,
+      isEditable: true,
+      onUpdate: onRequestBodyUpdate,
+    }, {
+      type: "params",
+      label: "Parameters",
+      content: {
+        path: request.path,
+        query: request.query
+      },
+      isEditable: true,
+      onUpdate: onParametersUpdate,
+    }]}></ActionTabs>
   </div>
 </div>
 
@@ -52,13 +81,4 @@
   .request {
     margin-top: .5rem;
   }
-  .headers, .params {
-    margin: .5rem;
-    padding: .5rem;
-    border: 1px solid black;
-  }
-  .response {
-    width: 100%;
-    overflow: hidden;
-}
 </style>

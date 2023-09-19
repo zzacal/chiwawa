@@ -12,8 +12,10 @@ export type EnabledKvp<TKey, TVal> = {
 export type Action = Address & {
   id: string;
   name: string;
-  headers?: EnabledKvp<string, string>[];
-  parameters?: EnabledKvp<string, string>[];
+  headers: EnabledKvp<string, string>[];
+  query: EnabledKvp<string, string>[];
+  path: EnabledKvp<string, string>[];
+  body: string;
 };
 
 export type LibraryNode = {
