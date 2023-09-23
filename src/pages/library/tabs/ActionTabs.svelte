@@ -1,5 +1,6 @@
 <script lang="ts">
-  import NameValCollection from "../NameValues/NameValCollection.svelte";
+  import Editor from "../../../inputs/Editor.svelte";
+import NameValCollection from "../NameValues/NameValCollection.svelte";
   import NameValDisplay from "../NameValues/NameValDisplay.svelte";
   import type { ActionTabContent } from "./tab-types";
   export let tabs: ActionTabContent[];
@@ -22,10 +23,10 @@
   {/each}
 </ul>
 
-<div class="active">
+<div class="content">
   {#if active.type === "body"}
     <h3>{active.label}</h3>
-    <textarea>{active.content}</textarea>
+    <Editor bind:value={active.content}></Editor>
   {:else if active.type === "headers"}
     <h3>{active.label}</h3>
     <NameValCollection bind:value={active.content} />
@@ -41,7 +42,7 @@
     {/if}
   {:else if active.type==="response-body"}
     <h3>{active.label}</h3>
-    <textarea>{active.content}</textarea>
+    <Editor bind:value={active.content}></Editor>
   {:else if active.type === "response-headers"}
     <h3>{active.label}</h3>
     <NameValDisplay value={active.content}></NameValDisplay>
@@ -60,7 +61,6 @@
   .tab {
     padding: 0 1rem;
 
-
     &:hover {
         background-color: var(--background-preemph);
       }
@@ -72,4 +72,8 @@
         }
       }
   }
-</style>
+  .content {
+    display: flex;
+    flex-flow: column;
+  }
+ </style>

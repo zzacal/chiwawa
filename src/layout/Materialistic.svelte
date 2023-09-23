@@ -30,6 +30,7 @@
 <style lang="scss">
   .materialistic {
     display: flex;
+    height: 100vh;
   }
   .side {
     flex-shrink: 0;
@@ -37,6 +38,7 @@
 
   .main {
     flex-grow: 1;
+    display: grid;
   }
 
   nav, div.side, main {

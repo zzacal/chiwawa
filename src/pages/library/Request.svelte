@@ -6,18 +6,6 @@
   export let methods: string[];
   export let request: Action;
 
-  // request = request ?? {
-  //   id: "",
-  //   name: "Get",
-  //   method: methods[0],
-  //   url: "",
-  // };
-
-  // let headers = request.headers ?? [];
-  // let query = request.query ?? [];
-  // let path = request.path ?? [];
-  // let body = request.body;
-
   console.log(request);
   let response: ChiResponse;
 
@@ -117,9 +105,15 @@
 <style lang="scss">
   .request, .response {
     margin: 0.5rem;
+
+    display: grid;
+    grid-template-rows: 50px 100%;
   }
-  .response {
-    
+  .details {
+    display: grid;
+    grid-template-rows: 40px;
+  }
+  .response {    
     h2 {
       line-height: 47px;
       margin: unset;

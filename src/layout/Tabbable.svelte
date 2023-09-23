@@ -26,17 +26,19 @@
     }
   }
 </script>
-<nav class="actions">
-  <div class="menu">
-    <button on:click={() => console.log("imma save now")}>
-      <Save />
-    </button>
-    <button on:click={() => onNew(null)}>
-      <Add />
-    </button>
-  </div>
-  <ul class="tabs">
-    {#each tabs as tab }
+
+<div class="tabbable">
+  <nav class="actions">
+    <div class="menu">
+      <button on:click={() => console.log("imma save now")}>
+        <Save />
+      </button>
+      <button on:click={() => onNew(null)}>
+        <Add />
+      </button>
+    </div>
+    <ul class="tabs">
+      {#each tabs as tab }
       <li class="tab {tab === open ? "active": ""}">
         <a href="#{tab.label}" on:click={openTab(tab)}>
           {tab.label}
@@ -44,19 +46,25 @@
         <button class="close" on:click={remove(tab.id)}>
           <Close />
         </button>
-    </li>
-    {/each}
-  </ul>
-</nav>
-<div class="active">
-  {#key open}
+      </li>
+      {/each}
+    </ul>
+  </nav>
+  <div class="active-tab">
+    {#key open}
     {#if open?.type === "request" && open.action}
     <Request methods={open.methods} request={open.action}></Request>
     {/if}
-  {/key}
+    {/key}
+  </div>
 </div>
 
 <style lang="scss">
+  .tabbable {
+    display: grid;
+    grid-template-rows: 33px 100%;
+  }
+
   nav {
     display: flex;
     align-items: center;
@@ -83,6 +91,7 @@
       }
     }
   }
+
   .tabs {
     display: flex;
     // gap: .15rem;
@@ -117,5 +126,9 @@
         color: var(--tab);
       }
     }
+  }
+
+  .active-tab {
+    display: grid;
   }
 </style>
