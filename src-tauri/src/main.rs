@@ -7,6 +7,9 @@ use chi_models::{ChiConfig, Action, SerializableError, SerializableResponse, map
 pub mod http_client;
 use http_client::send_request;
 
+pub mod store;
+use store::get_config;
+
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -15,7 +18,10 @@ fn greet(name: &str) -> String {
 
 #[tauri::command]
 fn initialize() -> ChiConfig {
-    ChiConfig { methods: vec![String::from("GET"), String::from("POST"), String::from("PUT"), String::from("DELETE")] }
+    ChiConfig { 
+        methods: vec![String::from("GET"), String::from("POST"), String::from("PUT"), String::from("DELETE")],
+        libraries: get_config()
+    }
 }
 
 #[tauri::command]

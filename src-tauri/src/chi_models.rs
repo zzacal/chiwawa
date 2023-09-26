@@ -3,6 +3,22 @@ use reqwest::header::{HeaderMap, HeaderValue, HeaderName};
 use serde::{Serialize, Deserialize};
 use std::str::FromStr;
 
+
+// export type LibraryNode = {
+//   id: string;
+//   name: string;
+//   actions?: Action[];
+//   children?: LibraryNode[];
+// };
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ChiLibraryNode {
+  pub id: String,
+  pub name: String,
+  pub actions: Vec<Action>,
+  pub children: Vec<ChiLibraryNode>
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ChiRequest {
     pub method: String,
@@ -11,7 +27,8 @@ pub struct ChiRequest {
 
 #[derive(Serialize)]
 pub struct ChiConfig {
-    pub methods: Vec<String>
+    pub methods: Vec<String>,
+    pub libraries: Vec<ChiLibraryNode>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -23,6 +40,7 @@ pub struct EnabledKvp<TKey, TVal> {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Action {
+    pub id: String,
     pub method: String,
     pub url: String,
     pub name: String,
@@ -34,7 +52,7 @@ pub struct Action {
 
 impl<TKey, TVal> EnabledKvp<TKey, TVal> {
   pub fn try_kvp(&self) -> Option<(&TKey, &TVal)> {
-    if(self.is_enabled) {
+    if self.is_enabled {
       Some((&self.key, &self.value))
     } else {
       None

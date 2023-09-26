@@ -6,10 +6,6 @@ export async function getConfig(): Promise<Config> {
   return await invoke("initialize");
 }
 
-export async function getLibrary(): Promise<LibraryNode[]> {
-  return [...lib];
-}
-
 export async function putAction(
   libId: string | null = null
 ): Promise<LibraryNode[]> {

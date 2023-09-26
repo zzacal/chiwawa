@@ -1,18 +1,18 @@
 <script lang="ts">
   import Materialistic from './layout/Materialistic.svelte';
   import type { ActionTab, Tab } from './layout/types';
+  import Library from './pages/library/Library.svelte';
   import type { Action, LibraryNode } from './pages/library/types';
-  import { getConfig, getLibrary, putAction } from './service/config-service';
+  import { getConfig, putAction } from './service/config-service';
   import type { Config } from './types';
   
   let config: Config;
-  let library: LibraryNode[];
   let tabs: Tab[] = [];
   let open: Tab;
 
   (async function init(){
     config = await getConfig();
-    library = [...await getLibrary()];
+    console.log(config.libraries);
   })();
 
   function openTab(action: Action) {
@@ -36,22 +36,24 @@
   }
 
   async function addAction(nodeId: string | null = null) {
-    library = [...await putAction(nodeId)];
-    const newAction = library.find(() => true)?.actions?.find(() => true);
-    if(newAction) {
-      openTab(newAction);
-    }
+    // TODO: add a library
+    // library = [...await putAction(nodeId)];
+    // const newAction = library.find(() => true)?.actions?.find(() => true);
+    // if(newAction) {
+    //   openTab(newAction);
+    // }
   }
 </script>
 
-<Materialistic 
-  library={library}
-  tabs={tabs}
-  open={open}
-  onExplorerSelect={openTab}
-  onCloseTab={closeTab}
-  onNew={addAction}
-  ></Materialistic>
-
+{#if config && config.libraries}
+  <Materialistic 
+    library={config.libraries}
+    tabs={tabs}
+    open={open}
+    onExplorerSelect={openTab}
+    onCloseTab={closeTab}
+    onNew={addAction}
+    ></Materialistic>
+{/if}
 <style lang="scss">
 </style>

@@ -1,5 +1,5 @@
 use crate::chi_models::{Action, map_to_headermap};
-use reqwest::{Client, header::{HeaderMap, HeaderValue, HeaderName}};
+use reqwest::Client;
 
 pub async fn send_request(request: Action) -> Result<reqwest::Response, reqwest::Error> {
   if request.method == "POST" {
