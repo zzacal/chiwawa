@@ -1,0 +1,142 @@
+{
+  "id": "0",
+  "name": "Library",
+  "actions": [
+    {
+      "id": "1",
+      "name": "Some Get",
+      "method": "GET",
+      "url": "https://httpbin.org/get",
+      "headers": [],
+      "query": [],
+      "path": [],
+      "body": ""
+    },
+    {
+      "id": "2",
+      "name": "Some Post",
+      "method": "POST",
+      "url": "https://httpbin.org/post",
+      "headers": [],
+      "query": [],
+      "path": [],
+      "body": ""
+    },
+    {
+      "id": "3",
+      "name": "Some Put",
+      "method": "PUT",
+      "url": "https://httpbin.org/put",
+      "headers": [],
+      "query": [],
+      "path": [],
+      "body": ""
+    },
+    {
+      "id": "4",
+      "name": "Some Delete",
+      "method": "DELETE",
+      "url": "https://httpbin.org/delete",
+      "headers": [],
+      "query": [],
+      "path": [],
+      "body": ""
+    }
+  ],
+  "children": [
+    {
+      "id": "5",
+      "name": "Childs tho",
+      "actions": [
+        {
+          "id": "6",
+          "name": "Some Get",
+          "method": "GET",
+          "url": "https://httpbin.org/get",
+          "headers": [],
+          "query": [],
+          "path": [],
+          "body": ""
+        },
+        {
+          "id": "7",
+          "name": "Some Post",
+          "method": "POST",
+          "url": "https://httpbin.org/post",
+          "headers": [],
+          "query": [],
+          "path": [],
+          "body": ""
+        },
+        {
+          "id": "8",
+          "name": "Some Put",
+          "method": "PUT",
+          "url": "https://httpbin.org/put",
+          "headers": [],
+          "query": [],
+          "path": [],
+          "body": ""
+        },
+        {
+          "id": "9",
+          "name": "Some Delete",
+          "method": "DELETE",
+          "url": "https://httpbin.org/delete",
+          "headers": [],
+          "query": [],
+          "path": [],
+          "body": ""
+        }
+      ],
+      "children": []
+    },
+    {
+      "id": "11",
+      "name": "Child2",
+      "actions": [
+        {
+          "id": "12",
+          "name": "Some Get",
+          "method": "GET",
+          "url": "https://httpbin.org/get",
+          "headers": [],
+          "query": [],
+          "path": [],
+          "body": ""
+        },
+        {
+          "id": "13",
+          "name": "Some Post",
+          "method": "POST",
+          "url": "https://httpbin.org/post",
+          "headers": [],
+          "query": [],
+          "path": [],
+          "body": ""
+        },
+        {
+          "id": "14",
+          "name": "Some Put",
+          "method": "PUT",
+          "url": "https://httpbin.org/put",
+          "headers": [],
+          "query": [],
+          "path": [],
+          "body": ""
+        },
+        {
+          "id": "15",
+          "name": "Some Delete",
+          "method": "DELETE",
+          "url": "https://httpbin.org/delete",
+          "headers": [],
+          "query": [],
+          "path": [],
+          "body": ""
+        }
+      ],
+      "children": []
+    }
+  ]
+}

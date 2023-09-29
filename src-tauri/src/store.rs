@@ -1,7 +1,12 @@
 use std::fs;
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
-
 use crate::chi_models::{ChiLibraryNode, Action, ChiConfig};
+
+#[derive(Serialize, Deserialize, Debug)]
+struct FileStore {
+    paths: Vec<String>
+}
 
 pub fn get_config() -> ChiConfig {
     ChiConfig { 
@@ -9,16 +14,21 @@ pub fn get_config() -> ChiConfig {
         libraries: get_libs()
     }
 }
+
 pub fn get_methods() -> Vec<String> {
     vec![String::from("GET"), String::from("POST"), String::from("PUT"), String::from("DELETE")]
 }
 
 pub fn get_libs() -> Vec<ChiLibraryNode> {
-    let data = app_data();
-    serde_json::from_str::<Vec<ChiLibraryNode>>(data.as_str()).unwrap()
+    let store = get_filestore();
+    let result: Vec<ChiLibraryNode> = store.paths.iter()
+        .map(|path| get_file_content(path))
+        .map(|content| serde_json::from_str::<ChiLibraryNode>(&content).unwrap())
+        .collect();
+    result
 }
 
-pub fn get_action(libraryId: Option<String>, actionId: Option<String>) -> Vec<ChiLibraryNode> {
+pub fn create_action(path: String) -> Vec<ChiLibraryNode> {
     let action = Action { 
         id: Uuid::new_v4().to_string(), 
         method: String::from(""), 
@@ -37,27 +47,32 @@ pub fn get_action(libraryId: Option<String>, actionId: Option<String>) -> Vec<Ch
     };
     let mut libraries = get_libs();
     libraries.push(library);
-    update_libs(&libraries)
+    update_libs(path, &libraries)
 }
 
-fn update_libs(libraries: &Vec<ChiLibraryNode>) -> Vec<ChiLibraryNode> {
-    fs::write(path(), format!("{:?}",libraries)).expect("Unable to write file");
+fn update_libs(path: String, libraries: &Vec<ChiLibraryNode>) -> Vec<ChiLibraryNode> {
+    fs::write(path, format!("{:?}",libraries)).expect("Unable to write file");
     get_libs()
 }
 
-fn app_data() -> String {
-    let data = match fs::read_to_string(path()) {
+fn get_filestore() -> FileStore {
+    let data = get_file_content(&get_filestore_path());
+    serde_json::from_str::<FileStore>(data.as_str()).unwrap()
+}
+
+fn get_file_content(path: &String) -> String {
+    let data = match fs::read_to_string(path) {
         Ok(content) => content,
-        Err(_error) => create_app_data()
+        Err(error) => panic!("{:?}", error)
     };
     data
 }
 
-fn create_app_data() -> String {
-    fs::write(path(), "[]").expect("Unable to write file");
-    app_data()
+fn create_file(path: &String, contents: &str) -> String {
+    fs::write(path, contents).expect("Unable to write file");
+    get_file_content(path)
 }
 
-fn path() -> String {
+fn get_filestore_path() -> String {
     format!("{}/app.json", std::env::current_dir().unwrap().display().to_string())
 }
